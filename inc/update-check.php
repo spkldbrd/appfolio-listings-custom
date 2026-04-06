@@ -25,7 +25,7 @@ function afc_get_update_manifest_url() {
 	} else {
 		$url = AFC_DEFAULT_UPDATE_MANIFEST;
 	}
-	return apply_filters('afc_update_manifest_url', $url);
+	return trim((string) apply_filters('afc_update_manifest_url', $url));
 }
 
 /**
@@ -95,10 +95,18 @@ function afc_handle_dismiss_update_notice() {
 	if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'afc_dismiss_update')) {
 		return;
 	}
+	if (!isset($_GET['page']) || sanitize_text_field(wp_unslash($_GET['page'])) !== 'apfl-pp') {
+		return;
+	}
 	$ver = sanitize_text_field(wp_unslash($_GET['afc_ver']));
 	update_user_meta(get_current_user_id(), 'afc_update_dismiss_' . md5($ver), '1');
 
-	wp_safe_redirect(remove_query_arg(array('afc_dismiss_update', 'afc_ver', '_wpnonce')));
+	wp_safe_redirect(
+		remove_query_arg(
+			array('afc_dismiss_update', 'afc_ver', '_wpnonce'),
+			admin_url('admin.php?page=apfl-pp')
+		)
+	);
 	exit;
 }
 add_action('admin_init', 'afc_handle_dismiss_update_notice');
@@ -140,7 +148,7 @@ function afc_update_available_admin_notice() {
 		add_query_arg(
 			array(
 				'afc_dismiss_update' => '1',
-				'afc_ver' => rawurlencode($remote),
+				'afc_ver' => $remote,
 			),
 			admin_url('admin.php?page=apfl-pp')
 		),

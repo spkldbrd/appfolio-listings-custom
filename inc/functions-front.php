@@ -53,6 +53,11 @@ if (!function_exists('apfl_generate_listing_html')) {
         $itm_searched = 0;
         $render_html = '';
         $apfl_listings_per_page = get_option('apfl_listings_per_page', true);
+        $listings_arr = array();
+        $textarea_input = '';
+        $apfl_columns_cnt = 3;
+        $total_items = 0;
+        $total_pages = 1;
         if ($type == 'listings') {
             $listings_arr = get_option('apfl_listings_arr', true);
             $textarea_input = get_option('apfl_textarea_input', true);
@@ -67,12 +72,16 @@ if (!function_exists('apfl_generate_listing_html')) {
             $total_pages = get_option('apfl_total_pages_multiple', true);
         }
 
+        if (!is_array($listings_arr)) {
+            $listings_arr = array();
+        }
 
-
+        $apfl_columns_cnt = max(1, (int) $apfl_columns_cnt);
 
         $apfl_template = (int) get_option('apfl_template');
 
-        $items_per_page =  $apfl_listings_per_page;
+        $items_per_page = max(1, (int) $apfl_listings_per_page);
+        $current_page = max(1, (int) $current_page);
         $offset = ($current_page - 1) * $items_per_page;
 
         // Get the listings for the current page
