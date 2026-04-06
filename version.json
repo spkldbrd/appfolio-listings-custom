@@ -2,6 +2,6 @@
 	"version": "3.0.0",
 	"requires": "5.8",
 	"tested": "6.7",
-	"download_url": "",
-	"changelog_url": ""
+	"download_url": "https://github.com/spkldbrd/appfolio-listings-custom/releases/download/v3.0.0/appfolio-listings-custom-3.0.0.zip",
+	"changelog_url": "https://github.com/spkldbrd/appfolio-listings-custom/releases/tag/v3.0.0"
 }
