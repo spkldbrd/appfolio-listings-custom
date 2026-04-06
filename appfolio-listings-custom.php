@@ -17,10 +17,6 @@ if (!defined('ABSPATH')) {
 define('APFL_PRO_CURR_VER', '3.0.0');
 define('AFC_FORK_PLUGIN_FILE', __FILE__);
 
-/**
- * Optional: remote update manifest (public URL). Example GitHub raw:
- * define( 'AFC_UPDATE_MANIFEST_URL', 'https://raw.githubusercontent.com/OWNER/REPO/main/version.json' );
- */
 if (is_admin()) {
 	require_once dirname(__FILE__) . '/inc/update-check.php';
 }

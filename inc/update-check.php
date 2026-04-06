@@ -2,11 +2,9 @@
 /**
  * Remote version check when visiting Appfolio → settings (toplevel_page_apfl-pp).
  *
- * Set your public manifest URL (GitHub raw works for public repos), e.g. in wp-config.php:
- *   define( 'AFC_UPDATE_MANIFEST_URL', 'https://raw.githubusercontent.com/YOU/REPO/main/version.json' );
- *
- * version.json example:
- *   { "version": "3.0.1", "download_url": "https://github.com/YOU/REPO/releases/tag/v3.0.1", "changelog_url": "..." }
+ * Uses the public GitHub raw version.json by default (no wp-config needed).
+ * Optional: define AFC_UPDATE_MANIFEST_URL to override, or set it to '' to disable.
+ * Or use filter afc_update_manifest_url (return '' to turn off).
  *
  * @package Appfolio_Listings_Custom
  */
@@ -15,13 +13,17 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+/** @var string Default manifest for this fork (public repo). */
+const AFC_DEFAULT_UPDATE_MANIFEST = 'https://raw.githubusercontent.com/spkldbrd/appfolio-listings-custom/main/version.json';
+
 /**
  * @return string Manifest URL or empty to disable checks.
  */
 function afc_get_update_manifest_url() {
-	$url = '';
-	if (defined('AFC_UPDATE_MANIFEST_URL') && AFC_UPDATE_MANIFEST_URL) {
-		$url = AFC_UPDATE_MANIFEST_URL;
+	if (defined('AFC_UPDATE_MANIFEST_URL')) {
+		$url = (string) AFC_UPDATE_MANIFEST_URL;
+	} else {
+		$url = AFC_DEFAULT_UPDATE_MANIFEST;
 	}
 	return apply_filters('afc_update_manifest_url', $url);
 }
