@@ -62,10 +62,20 @@ if (!function_exists('apfl_pp_config_callback')) {
                 <a href="<?php echo get_admin_url(); ?>admin.php?page=apfl-pp&tab=carousel" class="tabs <?php echo ($active_menu == 'carousel' ? 'apfl_active' : ''); ?>">
                     <svg class="apfl-tab-icon apfl-tab-wide-icon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 10 100 80"><g i:extraneous="self"><g><path d="M89.6,19.9h-3.4c-0.8-3.5-3.9-6.1-7.7-6.1H21.4c-3.7,0-6.9,2.6-7.7,6.1h-3.4c-4.3,0-7.9,3.5-7.9,7.9v30.6     c0,4.3,3.5,7.9,7.9,7.9h3.4c0.8,3.5,3.9,6.1,7.7,6.1h57.1c3.7,0,6.9-2.6,7.7-6.1h3.4c4.3,0,7.9-3.5,7.9-7.9V27.7     C97.5,23.4,94,19.9,89.6,19.9z M74.1,31.5c0,2.9-2.4,5.3-5.3,5.3s-5.3-2.4-5.3-5.3c0-3,2.4-5.3,5.3-5.3S74.1,28.6,74.1,31.5z      M8.1,58.4V27.7c0-1.3,1-2.3,2.3-2.3h3.2v35.2h-3.2C9.1,60.6,8.1,59.6,8.1,58.4z M78.6,66.8H21.4c-1.3,0-2.3-1-2.3-2.3v-3.5     l18.3-21c1.9-2.2,5.4-2.2,7.3,0l11.6,13.3c0.4,0.4,1,0.4,1.4,0l4.5-5c1.8-1.9,4.8-1.9,6.6,0l11.9,13.1v3     C80.8,65.8,79.8,66.8,78.6,66.8z M91.9,58.4c0,1.3-1,2.3-2.3,2.3h-3.2V25.5h3.2c1.3,0,2.3,1,2.3,2.3V58.4z"/><circle cx="26.9" cy="81.7" r="4.6"/><circle cx="42.3" cy="81.7" r="4.6"/><circle cx="57.7" cy="81.7" r="4.6"/><circle cx="73.1" cy="81.7" r="4.6"/></g></g></svg>
                     Carousel</a>
+                <a href="<?php echo esc_url(get_admin_url(null, 'admin.php?page=apfl-pp&tab=shortcodes')); ?>"
+                    class="tabs <?php echo ($active_menu == 'shortcodes' ? 'apfl_active' : ''); ?>">
+                    <svg class="apfl-tab-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.7 15.9L4.8 12l3.9-3.9a1 1 0 10-1.4-1.4l-4.7 4.7a1 1 0 000 1.4l4.7 4.7a1 1 0 001.4-1.4zm6.6 0l3.9-3.9-3.9-3.9a1 1 0 011.4-1.4l4.7 4.7a1 1 0 010 1.4l-4.7 4.7a1 1 0 01-1.4-1.4z"/></svg>
+                    <?php echo esc_html__('Shortcodes', 'appfolio-listings-custom'); ?></a>
             </nav>
         </div>
 
         <?php
+
+            if ($active_menu == 'shortcodes') {
+                include plugin_dir_path(__FILE__) . 'shortcodes.php';
+                apfl_pp_shortcodes_reference_callback();
+                return;
+            }
 
             if ($active_menu == 'slider') {
                 include(plugin_dir_path(__FILE__) . 'slider.php');

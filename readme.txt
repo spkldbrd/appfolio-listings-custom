@@ -3,7 +3,7 @@ Contributors: spkldbrd
 Tags: appfolio, listings, property, real estate, shortcode
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -39,6 +39,9 @@ No. This distribution has no license server or activation gate.
 
 == Changelog ==
 
+= 3.0.5 =
+* Admin **Shortcodes** tab: reference for all shortcodes and attributes.
+
 = 3.0.4 =
 * `[apfl_listings]` shortcode: `show_heading="no"` hides the listings page heading and subheading (use this for embedded grids; `[apfl_listings_multiple]` is a different shortcode for multiple Appfolio URLs).
 
@@ -60,6 +63,9 @@ No. This distribution has no license server or activation gate.
 * Initial public release of this fork.
 
 == Upgrade Notice ==
+
+= 3.0.5 =
+Admin shortcode documentation tab.
 
 = 3.0.4 =
 Shortcode `show_heading` on main listings shortcode.
