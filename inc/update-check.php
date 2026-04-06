@@ -1,10 +1,13 @@
 <?php
 /**
- * Remote version check when visiting Appfolio → settings (toplevel_page_apfl-pp).
+ * Remote version check and WordPress plugin updater integration.
  *
  * Uses the public GitHub raw version.json by default (no wp-config needed).
  * Optional: define AFC_UPDATE_MANIFEST_URL to override, or set it to '' to disable.
  * Or use filter afc_update_manifest_url (return '' to turn off).
+ *
+ * Optional: define AFC_AUTO_UPDATE as true to enable background auto-updates for this plugin
+ * (in addition to the per-plugin toggle on the Plugins screen in WP 5.5+).
  *
  * @package Appfolio_Listings_Custom
  */
@@ -29,22 +32,12 @@ function afc_get_update_manifest_url() {
 }
 
 /**
- * Run on Appfolio admin screen load; caches result for 12 hours.
+ * Fetch manifest from network and store in transient (12h success, 1h on error).
+ *
+ * @param string $url Manifest URL.
+ * @param string $key Transient key.
  */
-function afc_maybe_check_for_updates() {
-	if (!current_user_can('manage_options')) {
-		return;
-	}
-	$url = afc_get_update_manifest_url();
-	if ($url === '') {
-		return;
-	}
-
-	$key = 'afc_remote_manifest_' . md5($url);
-	if (false !== get_transient($key)) {
-		return;
-	}
-
+function afc_prime_remote_manifest_cache($url, $key) {
 	$response = wp_remote_get(
 		$url,
 		array(
@@ -72,6 +65,52 @@ function afc_maybe_check_for_updates() {
 }
 
 /**
+ * Cached manifest for display and updater, or null. Fetches on cache miss.
+ *
+ * @return array<string, mixed>|null
+ */
+function afc_get_remote_manifest_data() {
+	$url = afc_get_update_manifest_url();
+	if ($url === '') {
+		return null;
+	}
+	$key = 'afc_remote_manifest_' . md5($url);
+	$data = get_transient($key);
+	if ($data !== false) {
+		if (is_array($data) && empty($data['error']) && !empty($data['version'])) {
+			return $data;
+		}
+		return null;
+	}
+	afc_prime_remote_manifest_cache($url, $key);
+	$data = get_transient($key);
+	if (is_array($data) && empty($data['error']) && !empty($data['version'])) {
+		return $data;
+	}
+	return null;
+}
+
+/**
+ * Run on Appfolio admin screen load; caches result for 12 hours.
+ */
+function afc_maybe_check_for_updates() {
+	if (!current_user_can('manage_options')) {
+		return;
+	}
+	$url = afc_get_update_manifest_url();
+	if ($url === '') {
+		return;
+	}
+
+	$key = 'afc_remote_manifest_' . md5($url);
+	if (false !== get_transient($key)) {
+		return;
+	}
+
+	afc_prime_remote_manifest_cache($url, $key);
+}
+
+/**
  * @param WP_Screen $screen
  */
 function afc_update_check_on_appfolio_screen($screen) {
@@ -81,6 +120,133 @@ function afc_update_check_on_appfolio_screen($screen) {
 	afc_maybe_check_for_updates();
 }
 add_action('current_screen', 'afc_update_check_on_appfolio_screen');
+
+/**
+ * Register update with WordPress so Plugins / Dashboard → Updates can install in one click.
+ *
+ * @param object $transient Value for site transient update_plugins.
+ * @return object
+ */
+function afc_inject_plugin_update_transient($transient) {
+	if (!is_object($transient) || !defined('AFC_FORK_PLUGIN_FILE')) {
+		return $transient;
+	}
+	if (empty($transient->checked) || !is_array($transient->checked)) {
+		return $transient;
+	}
+
+	$plugin_file = plugin_basename(AFC_FORK_PLUGIN_FILE);
+	if (!isset($transient->checked[$plugin_file])) {
+		return $transient;
+	}
+
+	$url = afc_get_update_manifest_url();
+	if ($url === '') {
+		return $transient;
+	}
+
+	$data = afc_get_remote_manifest_data();
+	if (!$data || empty($data['download_url'])) {
+		return $transient;
+	}
+
+	$remote = trim((string) $data['version']);
+	if (!preg_match('/^\d+(\.\d+){0,3}/', $remote)) {
+		return $transient;
+	}
+
+	$local = $transient->checked[$plugin_file];
+	if (version_compare($local, $remote, '>=')) {
+		return $transient;
+	}
+
+	$package = esc_url_raw((string) $data['download_url']);
+	if ($package === '' || !wp_http_validate_url($package)) {
+		return $transient;
+	}
+
+	$transient->response[ $plugin_file ] = (object) array(
+		'id'            => $plugin_file,
+		'slug'          => 'appfolio-listings-custom',
+		'plugin'        => $plugin_file,
+		'new_version'   => $remote,
+		'url'           => 'https://github.com/spkldbrd/appfolio-listings-custom',
+		'package'       => $package,
+		'requires'      => !empty($data['requires']) ? sanitize_text_field((string) $data['requires']) : '5.8',
+		'tested'        => !empty($data['tested']) ? sanitize_text_field((string) $data['tested']) : '',
+		'requires_php'  => !empty($data['requires_php']) ? sanitize_text_field((string) $data['requires_php']) : '',
+	);
+
+	if (isset($transient->no_update[ $plugin_file ])) {
+		unset($transient->no_update[ $plugin_file ]);
+	}
+
+	return $transient;
+}
+add_filter('pre_set_site_transient_update_plugins', 'afc_inject_plugin_update_transient');
+
+/**
+ * "View details" / changelog tab for this plugin (not hosted on wordpress.org).
+ *
+ * @param false|object|array $result
+ * @param string               $action
+ * @param object               $args
+ * @return false|object|array
+ */
+function afc_plugins_api_plugin_information($result, $action, $args) {
+	if ($action !== 'plugin_information' || empty($args->slug) || $args->slug !== 'appfolio-listings-custom') {
+		return $result;
+	}
+
+	$data = afc_get_remote_manifest_data();
+	if (!$data) {
+		return $result;
+	}
+
+	$changelog = !empty($data['changelog_url']) ? esc_url($data['changelog_url']) : 'https://github.com/spkldbrd/appfolio-listings-custom/releases';
+	$changelog_html = '<p><a href="' . esc_url($changelog) . '" target="_blank" rel="noopener noreferrer">' .
+		esc_html__('Release notes on GitHub', 'appfolio-listings-custom') . '</a></p>';
+
+	return (object) array(
+		'name'          => 'Appfolio Listings Custom',
+		'slug'          => 'appfolio-listings-custom',
+		'version'       => isset($data['version']) ? sanitize_text_field((string) $data['version']) : '',
+		'author'        => '<a href="https://github.com/spkldbrd" target="_blank" rel="noopener noreferrer">spkldbrd</a>',
+		'homepage'      => 'https://github.com/spkldbrd/appfolio-listings-custom',
+		'requires'      => !empty($data['requires']) ? sanitize_text_field((string) $data['requires']) : '',
+		'tested'        => !empty($data['tested']) ? sanitize_text_field((string) $data['tested']) : '',
+		'download_link' => !empty($data['download_url']) ? esc_url($data['download_url']) : '',
+		'sections'      => array(
+			'description' => '<p>' . esc_html__('Property listings from Appfolio for WordPress.', 'appfolio-listings-custom') . '</p>',
+			'changelog'   => $changelog_html,
+		),
+	);
+}
+add_filter('plugins_api', 'afc_plugins_api_plugin_information', 10, 3);
+
+/**
+ * Optional background auto-updates when AFC_AUTO_UPDATE is true.
+ *
+ * @param bool|null $update Whether to update.
+ * @param object    $item   Plugin update offer.
+ * @return bool|null
+ */
+function afc_filter_auto_update_plugin($update, $item) {
+	if (!defined('AFC_AUTO_UPDATE') || !AFC_AUTO_UPDATE) {
+		return $update;
+	}
+	if (!defined('AFC_FORK_PLUGIN_FILE')) {
+		return $update;
+	}
+	if (!is_object($item) || empty($item->plugin)) {
+		return $update;
+	}
+	if ($item->plugin === plugin_basename(AFC_FORK_PLUGIN_FILE)) {
+		return true;
+	}
+	return $update;
+}
+add_filter('auto_update_plugin', 'afc_filter_auto_update_plugin', 10, 2);
 
 /**
  * Dismiss per remote version (GET + nonce).
@@ -122,9 +288,8 @@ function afc_update_available_admin_notice() {
 		return;
 	}
 
-	$key = 'afc_remote_manifest_' . md5($url);
-	$data = get_transient($key);
-	if (!is_array($data) || !empty($data['error']) || empty($data['version'])) {
+	$data = afc_get_remote_manifest_data();
+	if (!$data) {
 		return;
 	}
 
@@ -142,7 +307,6 @@ function afc_update_available_admin_notice() {
 		return;
 	}
 
-	$download = isset($data['download_url']) ? esc_url($data['download_url']) : '';
 	$changelog = isset($data['changelog_url']) ? esc_url($data['changelog_url']) : '';
 	$dismiss = wp_nonce_url(
 		add_query_arg(
@@ -155,6 +319,9 @@ function afc_update_available_admin_notice() {
 		'afc_dismiss_update'
 	);
 
+	$plugin_file = defined('AFC_FORK_PLUGIN_FILE') ? plugin_basename(AFC_FORK_PLUGIN_FILE) : '';
+	$can_update = $plugin_file && current_user_can('update_plugins');
+
 	echo '<div class="notice notice-info"><p>';
 	echo '<strong>' . esc_html__('Appfolio Listings Custom', 'appfolio-listings-custom') . ':</strong> ';
 	printf(
@@ -165,11 +332,19 @@ function afc_update_available_admin_notice() {
 	);
 	echo ' ';
 
-	if ($download) {
-		echo '<a href="' . $download . '" class="button button-primary" target="_blank" rel="noopener noreferrer">' .
+	if ($can_update) {
+		$update_url = wp_nonce_url(
+			self_admin_url('update.php?action=upgrade-plugin&plugin=' . rawurlencode($plugin_file)),
+			'upgrade-plugin_' . $plugin_file
+		);
+		echo '<a href="' . esc_url($update_url) . '" class="button button-primary">' .
+			esc_html__('Update now', 'appfolio-listings-custom') . '</a> ';
+	} elseif (!empty($data['download_url'])) {
+		echo '<a href="' . esc_url($data['download_url']) . '" class="button button-primary" target="_blank" rel="noopener noreferrer">' .
 			esc_html__('Download', 'appfolio-listings-custom') . '</a> ';
 	}
-	if ($changelog && $changelog !== $download) {
+
+	if ($changelog) {
 		echo '<a href="' . $changelog . '" class="button button-secondary" target="_blank" rel="noopener noreferrer">' .
 			esc_html__('Changelog', 'appfolio-listings-custom') . '</a> ';
 	}

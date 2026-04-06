@@ -68,4 +68,5 @@ add_filter('apfl_page_hdng', function($current_page_hdng){
 	}
 });
 
-// Remote updates: use GitHub releases / version.json (see inc/update-check.php).
+// Remote updates: GitHub releases + version.json; WordPress one-click update (see inc/update-check.php).
+// Optional wp-config: define('AFC_AUTO_UPDATE', true); for background auto-updates of this plugin only.

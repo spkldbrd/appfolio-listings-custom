@@ -3,7 +3,7 @@
  * Plugin Name: Appfolio Listings Custom
  * Plugin URI: https://github.com/spkldbrd/appfolio-listings-custom
  * Description: Display Appfolio property listings on WordPress using shortcodes, templates, slider, and carousel.
- * Version: 3.0.2
+ * Version: 3.0.3
  * Author: spkldbrd
  * License: GPL-2.0-or-later
  * Text Domain: appfolio-listings-custom
@@ -15,12 +15,10 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('APFL_PRO_CURR_VER', '3.0.2');
+define('APFL_PRO_CURR_VER', '3.0.3');
 define('AFC_FORK_PLUGIN_FILE', __FILE__);
 
-if (is_admin()) {
-	require_once dirname(__FILE__) . '/inc/update-check.php';
-}
+require_once dirname(__FILE__) . '/inc/update-check.php';
 
 include_once dirname(__FILE__) . '/apfl_actdeact.php';
 register_activation_hook(__FILE__, array('Apfl_Actdeact', 'apfl_plugin_activate'));

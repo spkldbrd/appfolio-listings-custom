@@ -3,7 +3,7 @@ Contributors: spkldbrd
 Tags: appfolio, listings, property, real estate, shortcode
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -18,7 +18,7 @@ Appfolio Listings Custom connects your Appfolio account to WordPress so you can 
 
 Place it on a full-width page for best layout. Additional shortcodes are documented in the plugin admin (Slider, Carousel, Listings builder).
 
-**Updates:** The plugin can check a public `version.json` (default: GitHub raw) from the Appfolio settings screen in wp-admin.
+**Updates:** The plugin reads a public `version.json` (default: GitHub raw). When a newer version is listed, WordPress shows an update on **Plugins** and **Dashboard → Updates** with one-click install, and the Appfolio settings screen can show an **Update now** button. Optional: add `define('AFC_AUTO_UPDATE', true);` in `wp-config.php` to allow background auto-updates for this plugin (you can still use the Plugins screen “Enable auto-updates” link in WP 5.5+).
 
 == Installation ==
 
@@ -39,6 +39,11 @@ No. This distribution has no license server or activation gate.
 
 == Changelog ==
 
+= 3.0.3 =
+* Register updates with WordPress: one-click update from Plugins / Dashboard → Updates.
+* Appfolio admin notice uses WordPress “Update now” when you have permission.
+* Optional `AFC_AUTO_UPDATE` constant for background auto-updates.
+
 = 3.0.2 =
 * Paginated full listings: smooth scroll to top of page when changing pages.
 * Multiple listings shortcode: `show_heading="no"` hides page heading and subheading.
@@ -52,6 +57,9 @@ No. This distribution has no license server or activation gate.
 * Initial public release of this fork.
 
 == Upgrade Notice ==
+
+= 3.0.3 =
+In-dashboard one-click updates when version.json reports a newer release.
 
 = 3.0.2 =
 UX and shortcode options. Upload the new ZIP or pull from Git.
