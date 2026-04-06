@@ -1,0 +1,72 @@
+.apfl-form {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1rem;
+	background: #f9f9f9;
+	padding: 1.5rem;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.apfl-field {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.apfl-field input,
+.apfl-field select {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 14px;
+	background: #fff;
+}
+
+.apfl-field input[type="date"] {
+	font-family: inherit;
+	appearance: none;
+}
+
+.apfl-actions {
+	/* display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	grid-column: span 2; */
+	display: block;
+}
+
+.apfl-submit {
+	padding: 12px 20px;
+	background-color: #0073aa;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.2s ease;
+	width: 100%;
+}
+
+.apfl-submit:hover {
+	background-color: #005f8d;
+}
+
+@media (max-width: 600px) {
+	.apfl-form {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.apfl-actions {
+		grid-column: span 2;
+		justify-content: center;
+	}
+
+	.apfl-form .apfl-fullwidth {
+	grid-column: span 2;
+}
+
+}

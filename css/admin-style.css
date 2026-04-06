@@ -1,0 +1,714 @@
+/* Customizer tab */
+.apfl_tab-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.apfl_tab-container .tabs {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 18px;
+    background-color: #fff;
+    color: #000;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.5;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    top: 2px;
+    box-shadow: 0 -0.125rem 0.25rem rgb(0 0 0 / 8%);
+}
+
+.apfl_tab-container .tabs:hover {
+  background-color: #429ab7;
+  color: #FFF;
+}
+
+.apfl_tab-container .tabs:hover svg{
+  fill: #fff;
+}
+
+.tabs.apfl_active {
+  background-color: #5cb0cc;
+  color: #fff;
+  border-color: #5cb0cc;
+  z-index: 2;
+}
+
+.tabs.apfl_active:focus, .apfl_tab-container .tabs, .apfl_col-2 .wp-picker-container .wp-color-result.button:focus {
+  outline: none;
+}
+
+.apfl-tab-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #5cb0cc; 
+  transition: color 0.2s ease-in-out;
+}
+.tabs.apfl_active .apfl-tab-icon {
+  fill: #fff;
+}
+.apfl-tab-wide-icon{
+  width: 24px;
+}
+
+/* Main Container */
+.apfl_setting-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+  background-color: #fff;
+  margin: 2rem 0;
+  box-sizing: border-box;
+}
+
+.apfl_heading {
+    font-size: 1.25rem;
+    margin: -30px 0 0 0;
+    color: #fff;
+    line-height: 2;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    background: #5cb0cc;
+}
+
+#apfl_pro_settings .apfl_heading {
+    margin: 0;
+}
+
+.apfl-sc-hint {
+    font-size: 1rem;
+    margin-left: auto;
+}
+    
+#apfl_copy {
+    cursor: pointer;
+    padding: 0 0 0 5px;
+    line-height: 0;
+}
+
+#apfl_copy svg {
+    width: 36px;
+    height: 36px;
+    fill: #FFF;
+}
+
+#apfl_copy:hover svg {
+    fill: #f1f1f1;
+}
+
+#apfl_sc_copied_icon {
+  display: none;
+}
+
+
+.apfl_inner-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0.6rem 0;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.apfl_col-1 {
+  flex: 1 1 20%;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.apfl_col-1 label {
+  display: block;
+}
+
+.apfl_col-2 {
+  flex: 1 1 75%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1%;
+  min-height: 50px;
+}
+
+.apfl_inner-container-license .apfl_col-2 {
+  min-height: 38px;
+}
+.apfl_col-2 label {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.apfl_conditional-options label, .apfl_input_group label {
+    position: absolute;
+    margin-top: -20px;
+}
+
+.apfl_input_group .wp-picker-input-wrap label, .apfl_conditional-options .wp-picker-input-wrap label {
+    position: relative;
+    margin: 0;
+}
+
+.apfl_col-2 .apfl_input {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 16px;
+  height: 38px;
+  font-size: 14px;
+  line-height: 1;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.apfl_input:focus {
+  border-color: #003366;
+  outline: none;
+}
+
+/* For Banner Section Only */
+.apfl_banner_col-1 {
+  flex: 1 1 30%;
+  font-weight: 700;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.apfl_banner .apfl_col-2 {
+  flex: 1 1 65%;
+  justify-content: flex-end;
+  /* flex-wrap: nowrap; */
+  overflow-x: auto;
+}
+
+.apfl_banner_logo {
+  max-height: 38px;
+}
+
+/* For License Activation  */
+.apfl_inner-container-license {
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: flex-start; */
+  justify-content: center;
+  align-items: center;
+  /* gap: 1rem; */
+}
+.apfl_license-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+.apfl_license-row input[type="text"] {
+  flex: 1 1 auto;
+  min-width: 200px;
+  padding: 0 16px;
+  height: 38px;
+  font-size: 14px;
+  line-height: 1;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.apfl_license-row .apfl_btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+  height: 38px;
+}
+
+/* For Slider and Carousel Pages */
+/* #apfl_slide_checkbox_cnt,
+#apfl_crsl_cnt {
+  width: 70px;
+  padding-right: 1px;
+} */
+
+/* Heading Banner */
+/* .banner-image-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 10px;
+} */
+
+.apfl_banner-preview-wrap {
+  float: left;
+}
+
+#apfl-banner-image-preview {
+  max-width: 200px;
+  max-height: 50px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.apfl_banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 1rem;
+  height: 50px;
+}
+
+.apfl_btn.danger {
+  background-color: #b32d2e;
+  color: #fff;
+}
+
+.apfl_btn.danger:hover {
+  background-color: #902122;
+}
+
+#apfl-upload-msg {
+  font-size: 13px;
+  color: green;
+  margin-top: 6px;
+  float: left;
+}
+
+/* Sub Heading Section Elements */
+
+.apfl_input_group {
+  width: 19.2%;
+  min-width: 150px;
+  margin: 0.5rem 0;
+}
+
+.apfl_input_group input,
+.apfl_input_group select {
+  width: 100%;
+  padding: 0 16px;
+  height: 38px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.apfl_input_group input:focus,
+.apfl_input_group select:focus {
+  border-color: #003366;
+  outline: none;
+}
+
+/* Display Filter */
+.apfl-fltrs-wrap {
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+/* Paginaion Input */
+.apfl_option-field-pagination {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+.apfl_col-2 .apfl_regular-text {
+  width: 150px;
+  padding: 0 16px;
+  height: 38px;
+  font-size: 14px;
+  line-height: 1;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Rent Detail Button */
+.apfl_option-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.apfl_option-field {
+  width: calc(12.33% - 1rem);
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.apfl_option-field input[type="text"],
+.apfl_option-field select {
+  width: 100%;
+  padding: 0 16px;
+  height: 38px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Checkbox input full width */
+.apfl_conditional-wrapper {
+  display: flex;
+  gap: 12px;
+  flex: 1 1 auto;
+}
+
+/* New wrapper for checkbox + input */
+.checkbox-input-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* Checkbox container */
+.checkbox-wrap {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  /* height: 38px; */
+}
+
+/* Conditional input container */
+.apfl_conditional-options {
+  flex: 1 1 auto;
+  min-width: 200px;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.apfl_conditional-options input[type="text"] {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 16px;
+  height: 38px;
+  font-size: 14px;
+  line-height: 1;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.apfl_conditional-options input[type="text"]:focus {
+  border-color: #003366;
+  outline: none;
+}
+
+.apfl_textarea {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.apfl_popup_overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+.apfl_popup_box {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  max-width: 90%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  z-index: 9999;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+.apfl_popup_header {
+  background-color: #5cb0cc;
+  padding: 10px;
+  text-align: right;
+}
+
+.apfl_popup_close {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.apfl_popup_close:hover {
+  color: #eee;
+}
+
+.apfl_popup_body {
+  padding: 20px 25px;
+  color: #333;
+}
+
+.apfl_popup_body p{
+    font-weight: normal;
+}
+
+.apfl_popup_body h3 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* All Buttons */
+.apfl_submit-container {
+  margin-top: 2rem;
+}
+
+.apfl_btn {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 38px;
+  min-width: 110px;
+  padding: 0 10px;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  background-color: #5cb0cc;
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+a.apfl_btn {
+  line-height: 38px;
+}
+
+input[type="submit"].apfl_btn {
+  appearance: none;
+  cursor: pointer;
+}
+
+.apfl_btn:hover {
+  background-color: #429ab7;
+  color: #fff;
+}
+
+/* Color Input */
+.apfl_col-2 .wp-picker-container.wp-picker-active {
+    position: relative;
+}
+.apfl_col-2 .wp-picker-container .wp-color-result.button {
+  min-height: 36px;
+  padding: 0 0 0 40px;
+  font-size: 14px;
+  line-height: 36px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.apfl_col-2 .wp-picker-holder {
+    position: absolute !important;
+    z-index: 1000;
+    top: 40px;
+}
+
+.apfl_col-2 .wp-picker-active .wp-picker-input-wrap, .apfl_col-2 .wp-picker-open + .apfl_col-2 .wp-picker-input-wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    margin-top: 0;
+    position: absolute;
+    top: 0;
+    left: 41px;
+    background: #fff;
+}
+
+.apfl_col-2 .wp-color-result-text {
+  background: #f6f7f7;
+  border-radius: 0 2px 2px 0;
+  border-left: 1px solid #c3c4c7;
+  color: #50575e;
+  padding: 0 16px;
+  text-align: center;
+  line-height: 2.5;
+}
+
+/* Style Att CSS */
+.apfl_hidden {
+  display: none;
+}
+
+.apfl_col-2 .CodeMirror {
+  width: 100%;
+  max-width: none;
+}
+
+.apfl_col-2 .CodeMirror .CodeMirror-scroll,
+.apfl_col-2 .CodeMirror .CodeMirror-scroll .CodeMirror-sizer {
+  width: 100%;
+}
+
+/* Toggle */
+.apfl_switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+  vertical-align: middle;
+}
+
+.apfl_switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.apfl_slide_checkbox {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #adb5bd;
+  transition: 0.3s;
+  border-radius: 34px;
+}
+
+.apfl_slide_checkbox::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  top: 3px;
+  background-color: #fff;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.apfl_switch input:checked + .apfl_slide_checkbox {
+  background-color: #5cb0cc;
+}
+
+.apfl_switch input:checked + .apfl_slide_checkbox::before {
+  transform: translateX(22px);
+}
+
+.apfl_col-2 .apfl_slm_text_message {
+  margin-left: 20px;
+}
+
+.apfl-notice {
+    position: relative;
+    padding: 15px;
+    margin: 10px 20px 0 2px;
+    border-left: 4px solid #46b450;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.apfl-notice.apfl-success {
+    border-color: #46b450;
+}
+
+.apfl-notice.apfl-error {
+    border-color: red;
+}
+
+.apfl-notice-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #555;
+}
+
+.apfl-notice-close:hover {
+    color: #000;
+}
+
+ /*-------------------- Other Plugins Tab ---*/
+ .apfl_inner-container.apfl_other_plugin {
+      align-items: start;
+      margin: 1rem 0;
+ }
+.apfl_other_plugin img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 5px #eee;
+}
+.apfl_other_plugin h1 {
+    width: 100%;
+    border-bottom: 2px solid #5cb0cc;
+    font-weight: bold;
+}
+.apfl_other_plugin p {
+    font-size: 1.2em;
+}
+/* --------------------- MOBILE CSS ---*/
+@media (max-width: 768px) {
+  .apfl_col-1,
+  .apfl_col-2 {
+    flex: 1 1 100%;
+  }
+  .apfl_col-1 {
+    border-top: 1px solid #ccc;
+    padding-top: 0.5rem;
+  }
+  .apfl_col-2 {
+    flex-wrap: wrap;
+  }
+  .apfl_btn {
+    min-width: 80px;
+    font-size: 11px;
+  }
+  .apfl_tab-container .tabs {
+    padding: 10px;
+    border: none;
+    top: 0;
+    border-radius: 8px;
+  }
+  .apfl_tab-container {
+    border-bottom: none;
+  }
+  .apfl_option-field, .apfl_input_group {
+    margin: 1rem 0;
+}
+
+}

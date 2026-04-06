@@ -1,0 +1,214 @@
+:root {
+    --apfl-carousel-primary-color: #074274
+}
+
+.apfl-cm-carousel-outer * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.apfl-cm-carousel-outer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.apfl-cm-carousel-track {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    transition: transform 0.5s cubic-bezier(.4, 1, .4, 1);
+}
+
+.apfl-cm-nav-wrapper {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    padding: 15px;
+}
+
+.apfl-cm-carousel-btn {
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.apfl-cm-carousel-btn:hover {
+    background: var(--apfl-carousel-primary-color);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+    transform: scale(1.05);
+}
+
+.apfl-cm-carousel-btn:hover svg {
+    stroke: white;
+}
+
+.apfl-cm-carousel-btn svg {
+    width: 28px;
+    height: 28px;
+    display: block;
+    stroke: var(--apfl-carousel-primary-color);
+}
+
+.apfl-cm-carousel-track > * {
+    box-sizing: border-box;
+    flex: 0 0 calc(100% / 3);
+    width: calc(100% / 3);
+    padding: 15px;
+}
+
+.apfl-cm-item > a{
+    text-decoration: none;
+}
+
+.apfl-cm-card {
+    height: 450px;
+    background: #ffffff;
+    border-radius: 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.apfl-cm-card-main-wrapper {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: transform 0.4s ease;
+}
+
+.apfl-cm-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 75%;
+}
+
+.apfl-cm-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.apfl-cm-badge-price {
+    position: absolute;
+    bottom: 20px;
+    right: 50%;
+    color: #fff;
+    z-index: 2;
+    text-align: center;
+    font-weight: bold;
+    transform: translateX(50%);
+    font-size: 2rem;
+}
+
+.apfl-cm-badge-date {
+    right: 10px;
+    position: absolute;
+    top: 10px;
+    padding: 10px 30px;
+    border-radius: 0;
+    color: #fff;
+    background: var(--apfl-carousel-primary-color);
+    z-index: 2;
+    text-align: center;
+    font-weight: bold;
+}
+
+.apfl-cm-card-content {
+    position: relative;
+    width: 100%;
+    height: 25%;
+    background: #fff;
+}
+
+.apfl-cm-card-main {
+    text-align: center;
+    padding: 20px 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.apfl-cm-card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: black;
+    display: none;
+}
+
+.apfl-cm-card-address {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: black;
+
+    /* ellipsis after 2 lines - remove if not required */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    line-height: 1.4;
+    min-width: 0;
+}
+
+.apfl-cm-card-features {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 100%;
+    height: 75px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.apfl-cm-feature-icon {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    color: #444444;
+    font-size: 1rem;
+}
+
+.apfl-cm-feature-icon:first-child {
+    border-left: none;
+}
+
+.apfl-cm-card:hover .apfl-cm-card-main-wrapper {
+    transform: translateY(-75px);
+}
+
+@media (max-width: 900px) {
+
+    .apfl-cm-carousel-track>* {
+        flex: 0 0 calc(100% / 2);
+        width: calc(100% / 2);
+    }
+}
+
+@media (max-width: 700px) {
+    .apfl-cm-carousel-track>* {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+}
