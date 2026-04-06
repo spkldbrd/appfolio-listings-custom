@@ -3,7 +3,7 @@ Contributors: spkldbrd
 Tags: appfolio, listings, property, real estate, shortcode
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Display Appfolio property listings on WordPress with shortcodes, templates, slid
 
 Appfolio Listings Custom connects your Appfolio account to WordPress so you can embed listings, filters, maps, and detail pages. Configure your Appfolio URL and optional Google Maps API key in the plugin settings.
 
-**Main shortcode:** `[apfl_listings]`
+**Main shortcode:** `[apfl_listings]` (supports `columns`, `limit`, `map`, `filters`, `show_heading`, etc.).
 
 Place it on a full-width page for best layout. Additional shortcodes are documented in the plugin admin (Slider, Carousel, Listings builder).
 
@@ -39,6 +39,9 @@ No. This distribution has no license server or activation gate.
 
 == Changelog ==
 
+= 3.0.4 =
+* `[apfl_listings]` shortcode: `show_heading="no"` hides the listings page heading and subheading (use this for embedded grids; `[apfl_listings_multiple]` is a different shortcode for multiple Appfolio URLs).
+
 = 3.0.3 =
 * Register updates with WordPress: one-click update from Plugins / Dashboard → Updates.
 * Appfolio admin notice uses WordPress “Update now” when you have permission.
@@ -57,6 +60,9 @@ No. This distribution has no license server or activation gate.
 * Initial public release of this fork.
 
 == Upgrade Notice ==
+
+= 3.0.4 =
+Shortcode `show_heading` on main listings shortcode.
 
 = 3.0.3 =
 In-dashboard one-click updates when version.json reports a newer release.
