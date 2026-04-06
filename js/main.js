@@ -297,6 +297,8 @@ jQuery(document).ready(function ($) {
 
     // Load listings for the clicked page
     loadListings(nextPage, "listings");
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   $(document).on("click", ".apfl-pagination-multiple a", function () {

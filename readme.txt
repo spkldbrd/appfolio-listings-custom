@@ -3,7 +3,7 @@ Contributors: spkldbrd
 Tags: appfolio, listings, property, real estate, shortcode
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -39,6 +39,10 @@ No. This distribution has no license server or activation gate.
 
 == Changelog ==
 
+= 3.0.2 =
+* Paginated full listings: smooth scroll to top of page when changing pages.
+* Multiple listings shortcode: `show_heading="no"` hides page heading and subheading.
+
 = 3.0.1 =
 * Rebranding and documentation cleanup.
 * Admin update notice from public version.json (GitHub).
@@ -48,6 +52,9 @@ No. This distribution has no license server or activation gate.
 * Initial public release of this fork.
 
 == Upgrade Notice ==
+
+= 3.0.2 =
+UX and shortcode options. Upload the new ZIP or pull from Git.
 
 = 3.0.1 =
 Maintenance and branding update. Upload the new ZIP or pull from Git.

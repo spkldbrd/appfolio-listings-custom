@@ -22,10 +22,14 @@ if (!function_exists('apfl_pp_display_multiple_listings')) {
 				'columns' => '',
 				'limit' => '',
 				'class' => '',
+				'show_heading' => 'yes',
 			),
 			is_array($atts) ? $atts : array(),
 			'apfl_listings_multiple'
 		);
+
+		$show_heading_val = strtolower(trim((string) $atts['show_heading']));
+		$apfl_sc_show_page_heading = !in_array($show_heading_val, array('no', '0', 'false', 'off', 'hide'), true);
 
 		$shortcode_columns = ($atts['columns'] !== '') ? max(1, min(5, (int) $atts['columns'])) : null;
 		$shortcode_limit = ($atts['limit'] !== '') ? max(0, (int) $atts['limit']) : null;
@@ -191,9 +195,11 @@ if (!function_exists('apfl_pp_display_multiple_listings')) {
 				$render_html .= '<div class="listing-filters">';
 			}
 
-			$listing_page_hdng = apply_filters("apfl_page_hdng", '');
-			if ($listing_page_hdng) {
-				$render_html .= '<div class="apfl_page_hdng">' . $listing_page_hdng . '</div>';
+			if ($apfl_sc_show_page_heading) {
+				$listing_page_hdng = apply_filters("apfl_page_hdng", '');
+				if ($listing_page_hdng) {
+					$render_html .= '<div class="apfl_page_hdng">' . $listing_page_hdng . '</div>';
+				}
 			}
 
 			if (!$apfl_template) {
@@ -251,7 +257,7 @@ if (!function_exists('apfl_pp_display_multiple_listings')) {
 
 			}
 
-			if ($apfl_page_sub_hdng) {
+			if ($apfl_sc_show_page_heading && $apfl_page_sub_hdng) {
 				$render_html .= '<div class="apfl_page_sub_hdng">' . $apfl_page_sub_hdng . '</div>';
 			}
 
