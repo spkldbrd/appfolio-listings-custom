@@ -9,7 +9,7 @@ if (!function_exists('apfl_pp_display_carousel')) {
 	function apfl_pp_display_carousel($atts){
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			return '[Listings for Appfolio Shortcode]';
+			return '';
 		}
 
 		$atts = shortcode_atts(

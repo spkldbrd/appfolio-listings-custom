@@ -1,73 +1,53 @@
-=== Listings for Appfolio Pro ===
-Contributors: listingsappfolio
-Tags: appfolio, appfolio listings, appfolio integration, Listings for Appfolio Pro, property listings, listings, wordpress appfolio plugin
-Requires at least: 6.0
-Tested up to: 6.9
-Stable tag: 2.7.1
+=== Appfolio Listings Custom ===
+Contributors: spkldbrd
+Tags: appfolio, listings, property, real estate, shortcode
+Requires at least: 5.8
+Tested up to: 6.7
+Stable tag: 3.0.1
 Requires PHP: 7.4
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-This is a Pro solution to your Appfolio Listings integration with your WordPress website
+Display Appfolio property listings on WordPress with shortcodes, templates, slider, and carousel.
 
 == Description ==
 
-“Listings for Appfolio Pro” is a property listing plugin that allows you to list your properties on your WordPress site from your Appfolio account with full control over design and functionality.
+Appfolio Listings Custom connects your Appfolio account to WordPress so you can embed listings, filters, maps, and detail pages. Configure your Appfolio URL and optional Google Maps API key in the plugin settings.
 
-Checkout the plugin's demo [here](https://listingsforappfolio.com/demo)
+**Main shortcode:** `[apfl_listings]`
 
-Shortcode: **[apfl_listings]**
-where you want to show the listings. A full-width page is recommended for better styling.
+Place it on a full-width page for best layout. Additional shortcodes are documented in the plugin admin (Slider, Carousel, Listings builder).
+
+**Updates:** The plugin can check a public `version.json` (default: GitHub raw) from the Appfolio settings screen in wp-admin.
 
 == Installation ==
 
-1. Download and upload the plugin files to the /wp-content/plugins/listings-for-appfolio-pro directory from our site.
-2. Activate the plugin through the "Plugins" screen in WordPress admin area.
+1. Download the release ZIP from GitHub Releases.
+2. Upload via **Plugins → Add New → Upload Plugin**, or extract to `wp-content/plugins/appfolio-listings-custom/`.
+3. Activate the plugin.
+4. Open **Appfolio** in the admin menu and set your Appfolio listings URL and pages.
 
 == Frequently Asked Questions ==
 
-= Do I still need the free version of the plugin? =
+= Where do I get the Appfolio URL? =
 
-No, You don't need the free version anymore. Please deactivate the free plugin and activate the PRO version of the plugin.
+Use the public listings URL from your Appfolio marketing site (as configured in Appfolio).
 
-== Features ==
+= Is a license key required? =
 
-[PRO version Features](https://listingsforappfolio.com/)
-
-* NEW - Search by Address.
-
-* NEW - Sort by Availability.
-
-* NEW - Display listings from multiple Appfolio accounts on a single page.
-
-* Customization options in WordPress backend.
-
-* Multiple Templates.
-
-* Slider and Carousel.
-
-* Video support in the Gallery.
-
-* Display Residential, Commercial or all listings on different pages.
-
-* Hide/Show filters, buttons, Price, Availability, Title, Address.
-
-* Replaceable icons for bedroom and bathroom labels. 
-
-* Upto 5 columns design options.
-
-* Gallery popup/lightbox showing full size images.
-
-* Options to toggle different search filters.
-
-* Option to change default sort order.
-
-* Option to use custom link for Apply buttons.
-
-* Option to add a Page heading.
-
-* Custom CSS Option.
+No. This distribution has no license server or activation gate.
 
 == Changelog ==
 
-[Complete Changelog](https://listingsforappfolio.com/change-log/)
+= 3.0.1 =
+* Rebranding and documentation cleanup.
+* Admin update notice from public version.json (GitHub).
+* No vendor license checks.
+
+= 3.0.0 =
+* Initial public release of this fork.
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+Maintenance and branding update. Upload the new ZIP or pull from Git.

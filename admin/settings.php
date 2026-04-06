@@ -20,14 +20,12 @@ if (!function_exists('apfl_pp_config_callback')) {
             <div class="apfl_setting-container apfl_banner">
                 <div class="apfl_inner-container">
                     <div class="apfl_banner_col-1">
-                        <img class="apfl_banner_logo" src="<?php echo $apfl_plugin_url . 'images/logo.jpg'; ?>">
-                        <span>Appfolio Listings Custom <?php echo esc_html($plugin_version); ?></span>
+                        <span class="dashicons dashicons-admin-multisite" style="font-size:40px;width:48px;height:48px;line-height:48px;color:#2271b1;" aria-hidden="true"></span>
+                        <span><strong><?php echo esc_html__('Appfolio Listings Custom', 'appfolio-listings-custom'); ?></strong> <?php echo esc_html($plugin_version); ?></span>
                     </div>
                     <div class="apfl_col-2">
-                        <a class="apfl_btn" target="_blank" href="https://listingsforappfolio.com/change-log/?utm_source=pro-change-log&utm_medium=lfa-pro">Change Log</a>
-                        <a class="apfl_btn" target="_blank" href="https://listingsforappfolio.com/documentation/?utm_source=pro-docs&utm_medium=lfa-pro">Documentation</a>
-                        <a class="apfl_btn" target="_blank" href="https://listingsforappfolio.com/support/?utm_source=pro-support&utm_medium=lfa-pro">Contact Support</a>
-                        <a class="apfl_btn" target="_blank" href="https://mjplugins.com/?utm_source=lfa-pro-banner&utm_medium=lfa">MJ Plugins</a>
+                        <a class="apfl_btn" target="_blank" rel="noopener noreferrer" href="https://github.com/spkldbrd/appfolio-listings-custom/releases"><?php echo esc_html__('Releases', 'appfolio-listings-custom'); ?></a>
+                        <a class="apfl_btn" target="_blank" rel="noopener noreferrer" href="https://github.com/spkldbrd/appfolio-listings-custom"><?php echo esc_html__('Source', 'appfolio-listings-custom'); ?></a>
                     </div>
                 </div>
             </div>
@@ -64,11 +62,6 @@ if (!function_exists('apfl_pp_config_callback')) {
                 <a href="<?php echo get_admin_url(); ?>admin.php?page=apfl-pp&tab=carousel" class="tabs <?php echo ($active_menu == 'carousel' ? 'apfl_active' : ''); ?>">
                     <svg class="apfl-tab-icon apfl-tab-wide-icon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 10 100 80"><g i:extraneous="self"><g><path d="M89.6,19.9h-3.4c-0.8-3.5-3.9-6.1-7.7-6.1H21.4c-3.7,0-6.9,2.6-7.7,6.1h-3.4c-4.3,0-7.9,3.5-7.9,7.9v30.6     c0,4.3,3.5,7.9,7.9,7.9h3.4c0.8,3.5,3.9,6.1,7.7,6.1h57.1c3.7,0,6.9-2.6,7.7-6.1h3.4c4.3,0,7.9-3.5,7.9-7.9V27.7     C97.5,23.4,94,19.9,89.6,19.9z M74.1,31.5c0,2.9-2.4,5.3-5.3,5.3s-5.3-2.4-5.3-5.3c0-3,2.4-5.3,5.3-5.3S74.1,28.6,74.1,31.5z      M8.1,58.4V27.7c0-1.3,1-2.3,2.3-2.3h3.2v35.2h-3.2C9.1,60.6,8.1,59.6,8.1,58.4z M78.6,66.8H21.4c-1.3,0-2.3-1-2.3-2.3v-3.5     l18.3-21c1.9-2.2,5.4-2.2,7.3,0l11.6,13.3c0.4,0.4,1,0.4,1.4,0l4.5-5c1.8-1.9,4.8-1.9,6.6,0l11.9,13.1v3     C80.8,65.8,79.8,66.8,78.6,66.8z M91.9,58.4c0,1.3-1,2.3-2.3,2.3h-3.2V25.5h3.2c1.3,0,2.3,1,2.3,2.3V58.4z"/><circle cx="26.9" cy="81.7" r="4.6"/><circle cx="42.3" cy="81.7" r="4.6"/><circle cx="57.7" cy="81.7" r="4.6"/><circle cx="73.1" cy="81.7" r="4.6"/></g></g></svg>
                     Carousel</a>
-                <a href="<?php echo get_admin_url(); ?>admin.php?page=apfl-pp&tab=other_plugins" class="tabs <?php echo ($active_menu == 'other_plugins' ? 'apfl_active' : ''); ?>">
-                    <svg class="apfl-tab-icon" fill="#e2252b" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M34.64355,74.10547a8.00344,8.00344,0,0,1-7.17089-11.53711A112.28357,112.28357,0,0,1,68.29688,17.22363a7.99959,7.99959,0,1,1,8.54,13.5293A96.29849,96.29849,0,0,0,41.82617,69.63867,8.002,8.002,0,0,1,34.64355,74.10547ZM228.52734,62.56836a112.28362,112.28362,0,0,0-40.82421-45.34473,7.9996,7.9996,0,1,0-8.54,13.5293,96.29849,96.29849,0,0,1,35.01074,38.88574,8.0002,8.0002,0,1,0,14.35351-7.07031Zm-7.71289,113.37109A15.99808,15.99808,0,0,1,207.0166,200H168a40,40,0,0,1-80,0H48.9834a15.99886,15.99886,0,0,1-13.79688-24.06445C41.124,165.7207,48.20313,146.33594,48.20313,112a79.89888,79.89888,0,0,1,79.79492-80c.2041,0,.40625.001.61035.002A79.70738,79.70738,0,0,1,207.80469,112C207.80469,146.33789,214.87988,165.72363,220.81445,175.93945ZM152,200H104a24,24,0,0,0,48,0Z"/>
-                    </svg>
-                    Other Plugins</a>
             </nav>
         </div>
 
@@ -89,10 +82,6 @@ if (!function_exists('apfl_pp_config_callback')) {
             } elseif ($active_menu == 'listings_page') {
                 include(plugin_dir_path(__FILE__) . 'listings.php');
                 apfl_pp_listings_builder_callback();
-                return;
-            } elseif ($active_menu == 'other_plugins') {
-                include(plugin_dir_path(__FILE__) . 'other_plugins.php');
-                apfl_pp_other_plugins_callback();
                 return;
             }
 
@@ -151,7 +140,7 @@ if (!function_exists('apfl_pp_config_callback')) {
                     <form method="POST" action="">
 
                         <div class="apfl_setting-container">
-                            <h2 class="apfl_heading"> Listings for Appfolio Settings</h2>
+                            <h2 class="apfl_heading"><?php echo esc_html__('Appfolio Listings settings', 'appfolio-listings-custom'); ?></h2>
 
                             <div class="apfl_inner-container">
                                 <div class="apfl_col-1">

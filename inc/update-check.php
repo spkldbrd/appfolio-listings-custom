@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-/** @var string Default manifest for this fork (public repo). */
+/** Default update manifest (public GitHub raw JSON). */
 const AFC_DEFAULT_UPDATE_MANIFEST = 'https://raw.githubusercontent.com/spkldbrd/appfolio-listings-custom/main/version.json';
 
 /**

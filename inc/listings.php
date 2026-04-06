@@ -11,7 +11,7 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (!isset($_POST['apfl_filter_nonce']) || !wp_verify_nonce($_POST['apfl_filter_nonce'], 'apfl_filter_form_action')) {
-				return '[Listings for Appfolio Shortcode]';
+				return '';
 			}
 		}
 

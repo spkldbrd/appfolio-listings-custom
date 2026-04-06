@@ -1,10 +1,11 @@
 <?php
 /**
  * Plugin Name: Appfolio Listings Custom
- * Description: Appfolio listings integration for WordPress (custom fork — no vendor license). Uninstall the original “Listings for Appfolio Pro” before activating to avoid duplicate shortcodes.
- * Version: 3.0.0
- * Author: Custom fork (based on Listings for Appfolio Pro)
- * License: GPL+2
+ * Plugin URI: https://github.com/spkldbrd/appfolio-listings-custom
+ * Description: Display Appfolio property listings on WordPress using shortcodes, templates, slider, and carousel.
+ * Version: 3.0.1
+ * Author: spkldbrd
+ * License: GPL-2.0-or-later
  * Text Domain: appfolio-listings-custom
  * Domain Path: /languages
  */
@@ -14,7 +15,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('APFL_PRO_CURR_VER', '3.0.0');
+define('APFL_PRO_CURR_VER', '3.0.1');
 define('AFC_FORK_PLUGIN_FILE', __FILE__);
 
 if (is_admin()) {
@@ -69,15 +70,15 @@ if (!function_exists('apfl_pp_init_plugin')) {
 	}
 }
 
-function lfa_add_query_var_lid( $wp_query ) {
+function afc_add_query_var_lid( $wp_query ) {
 	if(isset($_GET['lid'])){
 		$wp_query->query_vars['lid'] = sanitize_text_field($_GET['lid']);
 	}
 }
-add_action( 'pre_get_posts', 'lfa_add_query_var_lid' );
+add_action( 'pre_get_posts', 'afc_add_query_var_lid' );
 
-add_action('wp_head', 'lfa_fb_opengraph', 5);
-function lfa_fb_opengraph() {
+add_action('wp_head', 'afc_fb_opengraph', 5);
+function afc_fb_opengraph() {
 	$list_id = sanitize_text_field(get_query_var('lid'));
 	if ($list_id) {
 
@@ -151,7 +152,7 @@ if (!function_exists('apfl_pp_redirect_sl')) {
 	function apfl_pp_redirect_sl()
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			return '[Listings for Appfolio Shortcode]';
+			return '';
 		}
 
 		if (isset($_GET['lid'])) {

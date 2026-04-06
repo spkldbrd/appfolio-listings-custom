@@ -68,4 +68,4 @@ add_filter('apfl_page_hdng', function($current_page_hdng){
 	}
 });
 
-// Vendor remote updates removed in this fork — maintain updates yourself (Git, manual zip, etc.).
+// Remote updates: use GitHub releases / version.json (see inc/update-check.php).

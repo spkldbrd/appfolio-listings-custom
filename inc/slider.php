@@ -9,7 +9,7 @@ if (!function_exists('apfl_pp_display_slider')) {
 	function apfl_pp_display_slider($atts){
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			return '[Listings for Appfolio Shortcode]';
+			return '';
 		}
 
 		wp_enqueue_script('apfl-slider-script');
