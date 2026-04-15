@@ -218,21 +218,32 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 				$listing_page_hdng = apply_filters("apfl_page_hdng", '');
 
 				if ($apfl_template) {
-					$apfl_listings_banner_image_url = get_option('apfl_listings_banner_image_url_' . $apfl_template, true);
+					$apfl_page_sub_hdng = isset($template_data['apfl_page_sub_hdng']) ? $template_data['apfl_page_sub_hdng'] : '';
+				} else {
+					$apfl_page_sub_hdng = get_option('apfl_page_sub_hdng') ? get_option('apfl_page_sub_hdng') : '';
+				}
 
-					if (
-						$apfl_listings_banner_image_url && isset($template_data['apfl_listings_banner_image']) && $template_data['apfl_listings_banner_image'] == 'show'
-					) {
+				$apfl_listings_banner_image_url = '';
+				$has_listings_banner = false;
+				if ($apfl_template) {
+					$apfl_listings_banner_image_url = get_option('apfl_listings_banner_image_url_' . $apfl_template, true);
+					$has_listings_banner = (
+						$apfl_listings_banner_image_url
+						&& isset($template_data['apfl_listings_banner_image'])
+						&& $template_data['apfl_listings_banner_image'] == 'show'
+					);
+				}
+
+				$wrap_listing_filters = ($filters != 'hide')
+					|| ($apfl_sc_show_page_heading && ($listing_page_hdng || $apfl_page_sub_hdng))
+					|| $has_listings_banner;
+
+				if ($wrap_listing_filters) {
+					if ($has_listings_banner) {
 						$render_html .= '<div class="listing-filters" style="background-image: url(\'' . esc_url($apfl_listings_banner_image_url) . '\'); background-position: center;">';
 					} else {
 						$render_html .= '<div class="listing-filters">';
 					}
-
-                    $apfl_page_sub_hdng = isset($template_data['apfl_page_sub_hdng']) ? $template_data['apfl_page_sub_hdng'] : '';
-
-				} else {
-                    $apfl_page_sub_hdng = get_option('apfl_page_sub_hdng') ? get_option('apfl_page_sub_hdng') : '';
-					$render_html .= '<div class="listing-filters">';
 				}
 
 				if ($apfl_sc_show_page_heading && $listing_page_hdng) {
@@ -728,7 +739,9 @@ if (!function_exists('apfl_pp_display_all_listings')) {
                     }
                 }
 
-				$render_html .= '</div>';
+				if ($wrap_listing_filters) {
+					$render_html .= '</div>';
+				}
 
 				// Google map for listings
 				if ($map != 'hide' && $client_gmap_api) {
