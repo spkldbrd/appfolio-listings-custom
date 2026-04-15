@@ -51,6 +51,16 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 		}
 		$apfl_sc_show_page_heading = !in_array($show_heading_val, array('no', '0', 'false', 'off', 'hide'), true);
 
+		$shortcode_city_tokens = array();
+		if ($atts && isset($atts['city']) && (string) $atts['city'] !== '') {
+			foreach (explode(',', (string) $atts['city']) as $part) {
+				$t = sanitize_text_field(trim($part));
+				if ($t !== '') {
+					$shortcode_city_tokens[] = $t;
+				}
+			}
+		}
+
 		$render_html = '';
 
 		if($single_url) {
@@ -142,6 +152,13 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 							}
 						}
 					}
+				}
+			}
+
+			if (!isset($_POST['fltr-submt']) && $shortcode_city_tokens) {
+				foreach ($shortcode_city_tokens as $city_token) {
+					$set = 1;
+					$params .= '&filters[cities][]=' . urlencode($city_token);
 				}
 			}
 

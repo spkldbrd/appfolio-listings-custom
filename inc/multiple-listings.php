@@ -23,6 +23,7 @@ if (!function_exists('apfl_pp_display_multiple_listings')) {
 				'limit' => '',
 				'class' => '',
 				'show_heading' => 'yes',
+				'city' => '',
 			),
 			is_array($atts) ? $atts : array(),
 			'apfl_listings_multiple'
@@ -62,6 +63,16 @@ if (!function_exists('apfl_pp_display_multiple_listings')) {
         if ($atts && isset($atts['type'])) {
             $property_type = $atts['type'];
         }
+
+		$shortcode_city_tokens = array();
+		if (isset($atts['city']) && (string) $atts['city'] !== '') {
+			foreach (explode(',', (string) $atts['city']) as $part) {
+				$t = sanitize_text_field(trim($part));
+				if ($t !== '') {
+					$shortcode_city_tokens[] = $t;
+				}
+			}
+		}
 
 		$render_html = '';
 		if (isset($_GET['lid']) && isset($_GET['url'])) {
@@ -141,6 +152,16 @@ if (!function_exists('apfl_pp_display_multiple_listings')) {
 							}
 						}
 					}
+				}
+			}
+
+			if (!isset($_POST['fltr-submt']) && $shortcode_city_tokens) {
+				foreach ($shortcode_city_tokens as $city_token) {
+					$set = 1;
+					$params .= '&filters[cities][]=' . urlencode($city_token);
+				}
+				if (count($shortcode_city_tokens) === 1) {
+					$target_city = $shortcode_city_tokens[0];
 				}
 			}
 			

@@ -32,6 +32,7 @@ if (! function_exists('apfl_pp_shortcodes_reference_callback')) {
 					array('type', __('string', 'appfolio-listings-custom'), __('Property list filter passed to Appfolio (e.g. Residential).', 'appfolio-listings-custom')),
 					array('types', __('comma-separated', 'appfolio-listings-custom'), __('Adds a property-type dropdown in the filter form when filters are shown.', 'appfolio-listings-custom')),
 					array('show_heading', __('yes (default) or no', 'appfolio-listings-custom'), __('Use show_heading="no" (or 0, false, off, hide) to hide the listings page heading and subheading from settings.', 'appfolio-listings-custom')),
+					array('city', __('one or comma-separated', 'appfolio-listings-custom'), __('Pre-filters by Appfolio city on first load (same as City dropdown). Only when the visitor has not submitted the filter form. Values must match Appfolio option text exactly (e.g. Templeton).', 'appfolio-listings-custom')),
 				),
 			),
 			array(
@@ -47,6 +48,7 @@ if (! function_exists('apfl_pp_shortcodes_reference_callback')) {
 					array('limit', __('integer', 'appfolio-listings-custom'), __('Cap total listings shown.', 'appfolio-listings-custom')),
 					array('class', __('CSS classes', 'appfolio-listings-custom'), __('Extra space-separated classes on the wrapper (sanitized).', 'appfolio-listings-custom')),
 					array('show_heading', __('yes (default) or no', 'appfolio-listings-custom'), __('Hide page heading and subheading when set to no / 0 / false / off / hide.', 'appfolio-listings-custom')),
+					array('city', __('one or comma-separated', 'appfolio-listings-custom'), __('Same as main shortcode: pre-filter cities when the filter form was not submitted. With multiple comma-separated cities, the fetch uses all; internal city matching uses the first name only when a single city is set.', 'appfolio-listings-custom')),
 				),
 			),
 			array(
