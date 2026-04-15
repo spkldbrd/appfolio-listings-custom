@@ -61,6 +61,11 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 			}
 		}
 
+		$shortcode_empty_message = '';
+		if ($atts && isset($atts['empty_message']) && (string) $atts['empty_message'] !== '') {
+			$shortcode_empty_message = trim((string) $atts['empty_message']);
+		}
+
 		$render_html = '';
 
 		if($single_url) {
@@ -104,11 +109,8 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 				$client_listings_url = substr($client_listings_url, 0, -1);
 			}
 
-			$url = $client_listings_url . '/listings';
-
 			$set = 0;
 			$params = '';
-			$params_before = '';
 			$is_def_order = 1;
 			$def_sort_order = '';
 			$textarea_input = "";
@@ -184,10 +186,7 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 				}
 			}
 
-			if ($set) {
-				$params_before = '?';
-			}
-			$url = $client_listings_url . '/listings' . $params_before . $params;
+			$url = $client_listings_url . '/listings' . ($set ? '?' . ltrim($params, '&') : '');
 
 			$html = new simple_html_dom();
 			$response = wp_remote_get($url, [
@@ -1205,9 +1204,29 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 
 				} 
 				else {
-					
-					$render_html .= '<div class="no-listings"><p>No vacancies found matching your search criteria. Please select other filters.</p></div>';
-					
+					$default_no = '<div class="no-listings"><p>' . esc_html__('No vacancies found matching your search criteria. Please select other filters.', 'appfolio-listings-custom') . '</p></div>';
+					if ($shortcode_empty_message !== '') {
+						$no_html = '<div class="no-listings"><div class="apfl-no-results-custom">' . wp_kses_post($shortcode_empty_message) . '</div></div>';
+					} elseif (!empty($shortcode_city_tokens)) {
+						$no_html = '<div class="no-listings"><p>' . esc_html(
+							sprintf(
+								/* translators: %s: comma-separated city names from shortcode */
+								__('No current listings in %s.', 'appfolio-listings-custom'),
+								implode(', ', $shortcode_city_tokens)
+							)
+						) . '</p></div>';
+					} else {
+						$no_html = $default_no;
+					}
+					$render_html .= apply_filters(
+						'apfl_listings_no_results_html',
+						$no_html,
+						array(
+							'city_tokens'   => $shortcode_city_tokens,
+							'empty_message' => $shortcode_empty_message,
+						)
+					);
+
 					$render_html .= '</div></div>';
 				}
 

@@ -20,7 +20,7 @@ if (! function_exists('apfl_pp_shortcodes_reference_callback')) {
 			array(
 				'tag'     => 'apfl_listings',
 				'title'   => __('Main listings grid', 'appfolio-listings-custom'),
-				'desc'    => __('Shows listings from the Appfolio URL in plugin settings (or override with url). Use on a full-width page for best layout.', 'appfolio-listings-custom'),
+				'desc'    => __('Shows listings from the Appfolio URL in plugin settings (or override with url). Use on a full-width page for best layout. First-load filters (type, city, default sort) are sent as a normal query string so Appfolio can apply them.', 'appfolio-listings-custom'),
 				'example' => '[apfl_listings columns="4" limit="4" map="hide" filters="hide" show_heading="no"]',
 				'rows'    => array(
 					array('url', __('Appfolio site base URL', 'appfolio-listings-custom'), __('Optional. Overrides the global Appfolio URL for this instance only.', 'appfolio-listings-custom')),
@@ -33,12 +33,13 @@ if (! function_exists('apfl_pp_shortcodes_reference_callback')) {
 					array('types', __('comma-separated', 'appfolio-listings-custom'), __('Adds a property-type dropdown in the filter form when filters are shown.', 'appfolio-listings-custom')),
 					array('show_heading', __('yes (default) or no', 'appfolio-listings-custom'), __('Use show_heading="no" (or 0, false, off, hide) to hide the listings page heading and subheading from settings.', 'appfolio-listings-custom')),
 					array('city', __('one or comma-separated', 'appfolio-listings-custom'), __('Pre-filters by Appfolio city on first load (same as City dropdown). Only when the visitor has not submitted the filter form. Values must match Appfolio option text exactly (e.g. Templeton).', 'appfolio-listings-custom')),
+					array('empty_message', __('HTML or text', 'appfolio-listings-custom'), __('Optional. When the grid has no listing items, show this instead of the default no-results message. Basic HTML is allowed (same rules as post content). Ignored when listings are found. Developers can override the final HTML with the apfl_listings_no_results_html filter.', 'appfolio-listings-custom')),
 				),
 			),
 			array(
 				'tag'     => 'apfl_listings_multiple',
 				'title'   => __('Multiple Appfolio URLs', 'appfolio-listings-custom'),
-				'desc'    => __('Combines listings from more than one Appfolio marketing site. Not the same as apfl_listings—requires url with one or more comma-separated listing page URLs.', 'appfolio-listings-custom'),
+				'desc'    => __('Combines listings from more than one Appfolio marketing site. Not the same as apfl_listings—requires url with one or more comma-separated listing page URLs. First-load filters use the same query-string format as the main shortcode.', 'appfolio-listings-custom'),
 				'example' => '[apfl_listings_multiple url="https://a.appfolio.com/listings,https://b.appfolio.com/listings" columns="3" show_heading="no"]',
 				'rows'    => array(
 					array('url', __('comma-separated URLs', 'appfolio-listings-custom'), __('Required for multi-site use. Each URL should be the public /listings page for an Appfolio site.', 'appfolio-listings-custom')),

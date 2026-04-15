@@ -99,7 +99,6 @@ if (!function_exists('apfl_pp_display_multiple_listings')) {
 
 			$set = 0;
 			$params = '';
-			$params_before = '';
 			$is_def_order = 1;
 			$def_sort_order = '';
 			$target_city = $target_zip = '';
@@ -195,10 +194,6 @@ if (!function_exists('apfl_pp_display_multiple_listings')) {
 				}
 			}
 
-			if ($set) {
-				$params_before = '?';
-			}
-			
 			// $render_html .= '<!--TOTAL_COUNT_PLACEHOLDER-->';
 
 			if ($apfl_template) {
@@ -401,7 +396,7 @@ if (!function_exists('apfl_pp_display_multiple_listings')) {
 			$title_map = array();
 			foreach ($custom_url_arr as $custom_url) {
 
-				$url = $custom_url . '/listings' . $params_before . $params;
+				$url = $custom_url . '/listings' . ($set ? '?' . ltrim($params, '&') : '');
 
 				$city_fnd = $zip_fnd = false;
 

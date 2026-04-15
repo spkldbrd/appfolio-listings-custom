@@ -3,7 +3,7 @@ Contributors: spkldbrd
 Tags: appfolio, listings, property, real estate, shortcode
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 3.0.7
+Stable tag: 3.0.8
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Display Appfolio property listings on WordPress with shortcodes, templates, slid
 
 Appfolio Listings Custom connects your Appfolio account to WordPress so you can embed listings, filters, maps, and detail pages. Configure your Appfolio URL and optional Google Maps API key in the plugin settings.
 
-**Main shortcode:** `[apfl_listings]` (supports `columns`, `limit`, `map`, `filters`, `show_heading`, etc.).
+**Main shortcode:** `[apfl_listings]` (supports `columns`, `limit`, `map`, `filters`, `show_heading`, `city`, `empty_message`, etc.).
 
 Place it on a full-width page for best layout. Additional shortcodes are documented in the plugin admin (Slider, Carousel, Listings builder).
 
@@ -38,6 +38,10 @@ Use the public listings URL from your Appfolio marketing site (as configured in 
 No. This distribution has no license server or activation gate.
 
 == Changelog ==
+
+= 3.0.8 =
+* `[apfl_listings]` and `[apfl_listings_multiple]`: build first-load listing URLs with a proper `?` query string (fixes `?&filters[...]` so Appfolio is more likely to honor city and other filters).
+* `[apfl_listings]`: optional `empty_message` when the grid has no items; clearer default when `city` is set but no listings; `apfl_listings_no_results_html` filter for themes. Documented on the Shortcodes admin tab.
 
 = 3.0.7 =
 * `[apfl_listings]`: omit empty `.listing-filters` bar when `filters="hide"`, headings hidden (`show_heading="no"`), and no template banner image.
@@ -69,6 +73,9 @@ No. This distribution has no license server or activation gate.
 * Initial public release of this fork.
 
 == Upgrade Notice ==
+
+= 3.0.8 =
+Safer listing fetch URLs and optional no-results messaging for city pages.
 
 = 3.0.7 =
 Cleaner layout for compact shortcode embeds without filter bar.
