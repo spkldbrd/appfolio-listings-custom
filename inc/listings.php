@@ -70,6 +70,12 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 		if ($atts && isset($atts['all_listings_url']) && (string) $atts['all_listings_url'] !== '') {
 			$shortcode_all_listings_url = esc_url(trim((string) $atts['all_listings_url']));
 		}
+		if ($shortcode_all_listings_url === '') {
+			$_setting_url = get_option('apfl_all_lstngs_page');
+			if ($_setting_url) {
+				$shortcode_all_listings_url = esc_url(trim($_setting_url));
+			}
+		}
 
 		$render_html = '';
 
