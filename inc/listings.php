@@ -66,6 +66,11 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 			$shortcode_empty_message = trim((string) $atts['empty_message']);
 		}
 
+		$shortcode_all_listings_url = '';
+		if ($atts && isset($atts['all_listings_url']) && (string) $atts['all_listings_url'] !== '') {
+			$shortcode_all_listings_url = esc_url(trim((string) $atts['all_listings_url']));
+		}
+
 		$render_html = '';
 
 		if($single_url) {
@@ -205,12 +210,36 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 
 			if($html && $html->root) {
 
-				$listing_items = $html->find('#result_container .listing-item');
-				$total_items = $listing_items ? count($listing_items) : 0;
+			$listing_items = $html->find('#result_container .listing-item');
+			$total_items = $listing_items ? count($listing_items) : 0;
 
-				if($total_items) {
-					// $render_html .= '<div class="apfl-listings-count">' . $total_items . ' listings found</div>'; // Commenting for now - need better design and placement.
+			// AppFolio silently falls back to returning ALL listings when a city
+			// filter matches nothing. Detect that case by checking whether any
+			// returned listing's address actually contains the requested city.
+			// If none match, force an empty result so the no-results message shows.
+			if (!empty($shortcode_city_tokens) && !isset($_POST['fltr-submt']) && $listing_items) {
+				$city_match_found = false;
+				foreach ($listing_items as $_chk) {
+					$_addr_obj = $_chk->find('.js-listing-address', 0);
+					if ($_addr_obj) {
+						$_addr = strtolower($_addr_obj->plaintext);
+						foreach ($shortcode_city_tokens as $_tok) {
+							if (strpos($_addr, strtolower(trim($_tok))) !== false) {
+								$city_match_found = true;
+								break 2;
+							}
+						}
+					}
 				}
+				if (!$city_match_found) {
+					$listing_items = array();
+					$total_items   = 0;
+				}
+			}
+
+			if($total_items) {
+				// $render_html .= '<div class="apfl-listings-count">' . $total_items . ' listings found</div>'; // Commenting for now - need better design and placement.
+			}
 
 				$listings = array();
 				$listing_title = '';
@@ -1204,20 +1233,37 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 
 				} 
 				else {
-					$default_no = '<div class="no-listings"><p>' . esc_html__('No vacancies found matching your search criteria. Please select other filters.', 'appfolio-listings-custom') . '</p></div>';
-					if ($shortcode_empty_message !== '') {
-						$no_html = '<div class="no-listings"><div class="apfl-no-results-custom">' . wp_kses_post($shortcode_empty_message) . '</div></div>';
-					} elseif (!empty($shortcode_city_tokens)) {
+				$default_no = '<div class="no-listings"><p>' . esc_html__('No vacancies found matching your search criteria. Please select other filters.', 'appfolio-listings-custom') . '</p></div>';
+				if ($shortcode_empty_message !== '') {
+					$no_html = '<div class="no-listings"><div class="apfl-no-results-custom">' . wp_kses_post($shortcode_empty_message) . '</div></div>';
+				} elseif (!empty($shortcode_city_tokens)) {
+					$city_label = implode(', ', $shortcode_city_tokens);
+					if ($shortcode_all_listings_url !== '') {
+						$no_html = '<div class="no-listings apfl-no-listings-city">'
+							. '<p>' . wp_kses(
+								sprintf(
+									/* translators: %s: comma-separated city names from shortcode */
+									__( "It looks like we don't have any available rentals right now in %s.", 'appfolio-listings-custom' ),
+									'<strong>' . esc_html( $city_label ) . '</strong>'
+								),
+								array( 'strong' => array() )
+							) . '</p>'
+							. '<a href="' . $shortcode_all_listings_url . '" class="button apfl-view-all-btn">'
+							. esc_html__( 'View All Available Rentals', 'appfolio-listings-custom' )
+							. '</a>'
+							. '</div>';
+					} else {
 						$no_html = '<div class="no-listings"><p>' . esc_html(
 							sprintf(
 								/* translators: %s: comma-separated city names from shortcode */
 								__('No current listings in %s.', 'appfolio-listings-custom'),
-								implode(', ', $shortcode_city_tokens)
+								$city_label
 							)
 						) . '</p></div>';
-					} else {
-						$no_html = $default_no;
 					}
+				} else {
+					$no_html = $default_no;
+				}
 					$render_html .= apply_filters(
 						'apfl_listings_no_results_html',
 						$no_html,

@@ -3,7 +3,7 @@ Contributors: spkldbrd
 Tags: appfolio, listings, property, real estate, shortcode
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 3.0.8
+Stable tag: 3.0.9
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Display Appfolio property listings on WordPress with shortcodes, templates, slid
 
 Appfolio Listings Custom connects your Appfolio account to WordPress so you can embed listings, filters, maps, and detail pages. Configure your Appfolio URL and optional Google Maps API key in the plugin settings.
 
-**Main shortcode:** `[apfl_listings]` (supports `columns`, `limit`, `map`, `filters`, `show_heading`, `city`, `empty_message`, etc.).
+**Main shortcode:** `[apfl_listings]` (supports `columns`, `limit`, `map`, `filters`, `show_heading`, `city`, `all_listings_url`, `empty_message`, etc.).
 
 Place it on a full-width page for best layout. Additional shortcodes are documented in the plugin admin (Slider, Carousel, Listings builder).
 
@@ -38,6 +38,10 @@ Use the public listings URL from your Appfolio marketing site (as configured in 
 No. This distribution has no license server or activation gate.
 
 == Changelog ==
+
+= 3.0.9 =
+* `[apfl_listings]`: detect AppFolio's silent fallback to all listings when a `city` filter has no matches, and show the no-results message instead.
+* `[apfl_listings]`: new `all_listings_url` attribute — when set alongside `city`, an empty-city result displays "It looks like we don't have any available rentals right now in [City]" with a "View All Available Rentals" button linking to that URL.
 
 = 3.0.8 =
 * `[apfl_listings]` and `[apfl_listings_multiple]`: build first-load listing URLs with a proper `?` query string (fixes `?&filters[...]` so Appfolio is more likely to honor city and other filters).
@@ -73,6 +77,9 @@ No. This distribution has no license server or activation gate.
 * Initial public release of this fork.
 
 == Upgrade Notice ==
+
+= 3.0.9 =
+Fix: city-filtered pages no longer fall back to showing all listings when no rentals exist in that city; adds `all_listings_url` attribute for a "View All" button on empty city pages.
 
 = 3.0.8 =
 Safer listing fetch URLs and optional no-results messaging for city pages.
