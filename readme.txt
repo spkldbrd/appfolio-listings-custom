@@ -3,7 +3,7 @@ Contributors: spkldbrd
 Tags: appfolio, listings, property, real estate, shortcode
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 3.0.10
+Stable tag: 3.0.11
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -38,6 +38,9 @@ Use the public listings URL from your Appfolio marketing site (as configured in 
 No. This distribution has no license server or activation gate.
 
 == Changelog ==
+
+= 3.0.11 =
+* Fix: stray closing `</div>` in the no-results path was leaking outside the plugin container and breaking page CSS below the shortcode on city pages with no listings.
 
 = 3.0.10 =
 * `[apfl_listings]`: when `city` is set and no rentals are found, the "View All Available Rentals" button now uses the "URL with all listings" from plugin Settings automatically — no shortcode attribute needed. The `all_listings_url` shortcode attribute still works as an override.
@@ -80,6 +83,9 @@ No. This distribution has no license server or activation gate.
 * Initial public release of this fork.
 
 == Upgrade Notice ==
+
+= 3.0.11 =
+Fix: page CSS no longer breaks below the shortcode on city pages with no listings.
 
 = 3.0.10 =
 City no-results button now uses the "URL with all listings" from Settings automatically — no shortcode changes needed.

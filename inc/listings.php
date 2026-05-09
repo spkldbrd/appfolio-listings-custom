@@ -1270,16 +1270,16 @@ if (!function_exists('apfl_pp_display_all_listings')) {
 				} else {
 					$no_html = $default_no;
 				}
-					$render_html .= apply_filters(
-						'apfl_listings_no_results_html',
-						$no_html,
-						array(
-							'city_tokens'   => $shortcode_city_tokens,
-							'empty_message' => $shortcode_empty_message,
-						)
-					);
+				$render_html .= apply_filters(
+					'apfl_listings_no_results_html',
+					$no_html,
+					array(
+						'city_tokens'   => $shortcode_city_tokens,
+						'empty_message' => $shortcode_empty_message,
+					)
+				);
 
-					$render_html .= '</div></div>';
+				$render_html .= '</div>';
 				}
 
 				// Loading Map
